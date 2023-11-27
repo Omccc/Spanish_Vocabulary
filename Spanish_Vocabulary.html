@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apprendre les Mots en Espagnol</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #3498db;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    #word-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      height: 60vh; /* Reduced height to accommodate the points counter */
+    }
+
+    .word-card {
+      position: relative;
+      width: 150px;
+      height: 200px;
+      margin: 10px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+      cursor: pointer;
+    }
+
+    .word-card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      font-size: 18px;
+    }
+
+    .front-face {
+      background-color: #e74c3c; /* Rouge */
+      color: #fff;
+    }
+
+    .back-face {
+      background-color: #2ecc71; /* Vert */
+      color: #fff;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .options {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .option {
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 4px;
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    footer {
+      background-color: #3498db;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    #points-counter {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 24px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Apprendre les Mots en Espagnol</h1>
+  </header>
+
+  <div id="points-counter">Points: 0</div>
+
+  <div id="word-container"></div>
+
+  <footer>
+    <p>&copy; 2023 ApprendreEspagnol.com</p>
+  </footer>
+
+  <script>
+    let score = 0;
+
+    const frenchSpanishWords = [
+      { french: "le village", spanish: "el pueblo" },
+      { french: "le temps", spanish: "el tiempo" },
+      { french: "l'année", spanish: "el año" },
+    
+  { french: "le village", spanish: "el pueblo" },
+  { french: "le temps", spanish: "el tiempo" },
+  { french: "l'année", spanish: "el año" },
+  { french: "la chose", spanish: "la cosa" },
+  { french: "le chemin", spanish: "el camino" },
+  { french: "le jour", spanish: "el día" },
+  { french: "l'homme", spanish: "el hombre" },
+  { french: "l'état", spanish: "el estado" },
+  { french: "le lot", spanish: "el lote" },
+  { french: "la femme", spanish: "la mujer" },
+  { french: "le pays", spanish: "el país" },
+  { french: "la vie", spanish: "la vida" },
+  { french: "la question", spanish: "la cuestión" },
+  { french: "le président", spanish: "el presidente" },
+  { french: "l'enfant", spanish: "el niño" },
+  { french: "la semaine", spanish: "la semana" },
+  { french: "le monde", spanish: "el mundo" },
+  { french: "le type", spanish: "el tipo" },
+  { french: "le cas", spanish: "el caso" },
+  { french: "le problème", spanish: "el problema" },
+  { french: "le fait", spanish: "el hecho" },
+  { french: "la famille", spanish: "la familia" },
+  { french: "l'histoire", spanish: "la historia" },
+  { french: "le point", spanish: "el punto" },
+  { french: "le gouvernement", spanish: "el gobierno" },
+  { french: "l'argent", spanish: "el dinero" },
+  { french: "le problème", spanish: "la cuestión" },
+  { french: "la part", spanish: "la parte" },
+  { french: "le matin", spanish: "la mañana" },
+  { french: "le garçon", spanish: "el chico" },
+  { french: "le nombre", spanish: "el número" },
+  { french: "le travail", spanish: "el trabajo" },
+  { french: "la nuit", spanish: "la noche" },
+  { french: "le droit", spanish: "el derecho" },
+  { french: "l'école", spanish: "la escuela" },
+  { french: "l'endroit", spanish: "el lugar" },
+  { french: "la guerre", spanish: "la guerra" },
+  { french: "l'enfant", spanish: "el niño" },
+  { french: "le mois", spanish: "el mes" },
+  { french: "le livre", spanish: "el libro" },
+  { french: "l'heure", spanish: "la hora" },
+  { french: "le spectacle", spanish: "el show" },
+  { french: "la police", spanish: "la policía" },
+  { french: "le programme", spanish: "el programa" },
+  { french: "le parti", spanish: "el partido" },
+  { french: "la loi", spanish: "la ley" },
+  { french: "le mot", spanish: "la palabra" },
+  { french: "la personne", spanish: "la persona" },
+  { french: "le foyer", spanish: "el hogar" },
+  { french: "les affaires", spanish: "los negocios" },
+  { french: "l'ami", spanish: "el amigo" },
+  { french: "l'entreprise", spanish: "la empresa" },
+  { french: "le côté", spanish: "el lado" },
+  { french: "l'impôt", spanish: "el impuesto" },
+  { french: "la démocratie", spanish: "la democracia" },
+  { french: "le groupe", spanish: "el grupo" },
+  { french: "le moment", spanish: "el momento" },
+  { french: "la rupture", spanish: "la ruptura" },
+  { french: "l'idée", spanish: "la idea" },
+  { french: "le membre", spanish: "el miembro" },
+  { french: "le système", spanish: "el sistema" },
+  { french: "la minute", spanish: "el minuto" },
+  { french: "la raison", spanish: "la razón" },
+  { french: "la campagne", spanish: "la campaña" },
+  { french: "l'oeuvre", spanish: "la obra" },
+  { french: "la nation", spanish: "la nación" },
+  { french: "le congrès", spanish: "el congreso" },
+  { french: "la mère", spanish: "la madre" },
+  { french: "la force", spanish: "la fuerza" },
+  { french: "la santé", spanish: "la salud" },
+  { french: "la partie arrière", spanish: "la parte de atrás" },
+  { french: "la zone", spanish: "la zona" },
+  { french: "le nom", spanish: "el nombre" },
+  { french: "le compte-rendu", spanish: "el informe" },
+  { french: "la main", spanish: "la mano" },
+  { french: "la ligne", spanish: "la línea" },
+  { french: "la fin", spanish: "el fin" },
+  { french: "la cour", spanish: "la corte" },
+  { french: "le soin", spanish: "el cuidado" },
+  { french: "le couple", spanish: "la pareja" },
+  { french: "la maison", spanish: "la casa" },
+  { french: "l'américain", spanish: "el americano" },
+  { french: "le père", spanish: "el padre" },
+  { french: "la situation", spanish: "la situación" },
+  { french: "la voiture", spanish: "el coche" },
+  { french: "le père", spanish: "el padre" },
+  { french: "l'administration", spanish: "la administración" },
+  { french: "la drogue", spanish: "la droga" },
+  { french: "la ville", spanish: "la ciudad" },
+  { french: "le sentiment", spanish: "el sentido" },
+  { french: "la politique", spanish: "la política" },
+  { french: "le bureau", spanish: "la oficina" },
+  { french: "la décision", spanish: "la decisión" },
+  { french: "le pouvoir", spanish: "el poder" },
+
+      // ... Ajoutez ici les autres mots ...
+    ];
+
+
+
+    const frenchSpanishWordsWithBadTranslations = [
+  { french: "le village", spanish: "la ciudad" },
+  { french: "le temps", spanish: "el tiempo" },
+  { french: "l'année", spanish: "el año" },
+  { french: "la chose", spanish: "el objeto" },
+  { french: "le chemin", spanish: "la calle" },
+  { french: "le jour", spanish: "la semana" },
+  { french: "l'homme", spanish: "la mujer" },
+  { french: "l'état", spanish: "la nación" },
+  { french: "le lot", spanish: "la suerte" },
+  { french: "la femme", spanish: "el hombre" },
+  { french: "le pays", spanish: "el continente" },
+  { french: "la vie", spanish: "la muerte" },
+  { french: "la question", spanish: "la respuesta" },
+  { french: "le président", spanish: "el primer ministro" },
+  { french: "l'enfant", spanish: "l'adulte" },
+  { french: "la semaine", spanish: "el mes" },
+  { french: "le monde", spanish: "el planeta" },
+  { french: "le type", spanish: "la clase" },
+  { french: "le cas", spanish: "la causa" },
+  { french: "le problème", spanish: "la solution" },
+  { french: "le fait", spanish: "la ficción" },
+  { french: "la famille", spanish: "le cercle d'amis" },
+  { french: "l'histoire", spanish: "l'actualité" },
+  { french: "le point", spanish: "la ligne" },
+  { french: "le gouvernement", spanish: "le peuple" },
+  { french: "l'argent", spanish: "la richesse" },
+  { french: "le problème", spanish: "la solution" },
+  { french: "la part", spanish: "le tout" },
+  { french: "le matin", spanish: "le soir" },
+  { french: "le garçon", spanish: "la fille" },
+  { french: "le nombre", spanish: "le chiffre" },
+  { french: "le travail", spanish: "le loisir" },
+  { french: "la nuit", spanish: "le jour" },
+  { french: "le droit", spanish: "le tort" },
+  { french: "l'école", spanish: "l'université" },
+  { french: "l'endroit", spanish: "l'étranger" },
+  { french: "la guerre", spanish: "la paix" },
+  { french: "l'enfant", spanish: "l'adulte" },
+  { french: "le mois", spanish: "l'année" },
+  { french: "le livre", spanish: "le journal" },
+  { french: "l'heure", spanish: "le jour" },
+  { french: "le spectacle", spanish: "la réalité" },
+  { french: "la police", spanish: "la justice" },
+  { french: "le programme", spanish: "le plan" },
+  { french: "le parti", spanish: "le groupe" },
+  { french: "la loi", spanish: "la règle" },
+  { french: "le mot", spanish: "la phrase" },
+  { french: "la personne", spanish: "l'individu" },
+  { french: "le foyer", spanish: "le lieu de travail" },
+  { french: "les affaires", spanish: "la politique" },
+  { french: "l'ami", spanish: "le ennemi" },
+  { french: "l'entreprise", spanish: "l'organisme" },
+  { french: "le côté", spanish: "le milieu" },
+  { french: "l'impôt", spanish: "la taxe" },
+  { french: "la démocratie", spanish: "la dictature" },
+  { french: "le groupe", spanish: "la foule" },
+  { french: "le moment", spanish: "l'éternité" },
+  { french: "la rupture", spanish: "la réunion" },
+  { french: "l'idée", spanish: "la réalité" },
+  { french: "le membre", spanish: "le dirigeant"
+
+  ];
+
+
+
+    shuffleArray(frenchSpanishWords);
+
+    const wordContainer = document.getElementById("word-container");
+    const pointsCounter = document.getElementById("points-counter");
+
+    // Afficher les mots dans des cartes
+    frenchSpanishWords.forEach((wordData, index) => {
+      const wordCard = document.createElement("div");
+      wordCard.classList.add("word-card");
+      wordCard.innerHTML = `
+        <div class="card-inner">
+          <div class="card-face front-face" style="background-color: ${getRandomColor()}">${wordData.french}</div>
+          <div class="card-face back-face">
+            <div>${wordData.spanish}</div>
+            <div class="options">
+              <div class="option" onclick="checkAnswer(true, ${index})">Vrai</div>
+              <div class="option" onclick="checkAnswer(false, ${index})">Faux</div>
+            </div>
+          </div>
+        </div>
+      `;
+      wordContainer.appendChild(wordCard);
+    });
+
+    function getRandomColor() {
+      const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#34495e', '#16a085', '#c0392b', '#1abc9c', '#e67e22'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function checkAnswer(isCorrect, index) {
+  if (isCorrect) {
+    score += 10;
+    pointsCounter.textContent = "Points: " + score;
+    alert("Correct ! Score actuel : " + score);
+  } else {
+    score -= 5;
+    pointsCounter.textContent = "Points: " + score;
+    alert("Incorrect. Essayez encore !");
+  }
+
+  // Passer à la carte suivante
+  if (index < frenchSpanishWords.length - 1) {
+    wordContainer.children[index + 1].classList.add("hoverable");
+  }
+}
+
+function shuffleArray(array) {
+  let currentIndex = array.length;
+  let randomIndex;
+
+  // While there are still elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // Swap it with a random element.
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+
+  // Shuffle French and Spanish words
+  for (let i = 0; i < array.length; i++) {
+    // Swap the French and Spanish words.
+    [array[i].french, array[i].spanish] = [array[i].spanish, array[i].french];
+
+    // Pick an incorrect match for the Spanish word.
+    array[i].bad = array[i].spanish;
+    while (array[i].bad === array[i].french) {
+      array[i].bad = array[i].bad.replace(array[i].french, Math.random().toString(36).substring(2, 10));
+    }
+  }
+
+  return array;
+}
+  </script>
+</body>
+</html>
+ 
+
