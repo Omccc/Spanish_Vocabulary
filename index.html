@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <br>
   <title>Apprendre du vocabulaire en Espagnol</title>
   <style>
     body {
@@ -74,20 +76,6 @@
       align-items: center;
     }
 
-    .options {
-      margin-top: 10px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .option {
-      cursor: pointer;
-      padding: 5px 10px;
-      border-radius: 4px;
-      background-color: #3498db;
-      color: #fff;
-    }
-
     footer {
       background-color: #3498db;
       color: #fff;
@@ -114,7 +102,7 @@
     <h1>Apprendre du vocabulaire en Espagnol</h1>
   </header>
 
-  <div id="points-counter">Points: 0</div>
+  <!-- <div id="points-counter">Points: 0</div> -->
 
   <div id="word-container"></div>
 
@@ -123,8 +111,9 @@
   </footer>
 
   <script>
-    let score = 0;
+    // let score = 0;
 
+  
     const frenchSpanishWords = [
       { french: "le village", spanish: "el pueblo" },
       { french: "le temps", spanish: "el tiempo" },
@@ -228,74 +217,6 @@
       // ... Ajoutez ici les autres mots ...
     ];
 
-
-
-  //   const frenchSpanishWordsWithBadTranslations = [
-  // { french: "le village", spanish: "la ciudad" },
-  // { french: "le temps", spanish: "el tiempo" },
-  // { french: "l'année", spanish: "el año" },
-  // { french: "la chose", spanish: "el objeto" },
-  // { french: "le chemin", spanish: "la calle" },
-  // { french: "le jour", spanish: "la semana" },
-  // { french: "l'homme", spanish: "la mujer" },
-  // { french: "l'état", spanish: "la nación" },
-  // { french: "le lot", spanish: "la suerte" },
-  // { french: "la femme", spanish: "el hombre" },
-  // { french: "le pays", spanish: "el continente" },
-  // { french: "la vie", spanish: "la muerte" },
-  // { french: "la question", spanish: "la respuesta" },
-  // { french: "le président", spanish: "el primer ministro" },
-  // { french: "l'enfant", spanish: "l'adulte" },
-  // { french: "la semaine", spanish: "el mes" },
-  // { french: "le monde", spanish: "el planeta" },
-  // { french: "le type", spanish: "la clase" },
-  // { french: "le cas", spanish: "la causa" },
-  // { french: "le problème", spanish: "la solution" },
-  // { french: "le fait", spanish: "la ficción" },
-  // { french: "la famille", spanish: "le cercle d'amis" },
-  // { french: "l'histoire", spanish: "l'actualité" },
-  // { french: "le point", spanish: "la ligne" },
-  // { french: "le gouvernement", spanish: "le peuple" },
-  // { french: "l'argent", spanish: "la richesse" },
-  // { french: "le problème", spanish: "la solution" },
-  // { french: "la part", spanish: "le tout" },
-  // { french: "le matin", spanish: "le soir" },
-  // { french: "le garçon", spanish: "la fille" },
-  // { french: "le nombre", spanish: "le chiffre" },
-  // { french: "le travail", spanish: "le loisir" },
-  // { french: "la nuit", spanish: "le jour" },
-  // { french: "le droit", spanish: "le tort" },
-  // { french: "l'école", spanish: "l'université" },
-  // { french: "l'endroit", spanish: "l'étranger" },
-  // { french: "la guerre", spanish: "la paix" },
-  // { french: "l'enfant", spanish: "l'adulte" },
-  // { french: "le mois", spanish: "l'année" },
-  // { french: "le livre", spanish: "le journal" },
-  // { french: "l'heure", spanish: "le jour" },
-  // { french: "le spectacle", spanish: "la réalité" },
-  // { french: "la police", spanish: "la justice" },
-  // { french: "le programme", spanish: "le plan" },
-  // { french: "le parti", spanish: "le groupe" },
-  // { french: "la loi", spanish: "la règle" },
-  // { french: "le mot", spanish: "la phrase" },
-  // { french: "la personne", spanish: "l'individu" },
-  // { french: "le foyer", spanish: "le lieu de travail" },
-  // { french: "les affaires", spanish: "la politique" },
-  // { french: "l'ami", spanish: "le ennemi" },
-  // { french: "l'entreprise", spanish: "l'organisme" },
-  // { french: "le côté", spanish: "le milieu" },
-  // { french: "l'impôt", spanish: "la taxe" },
-  // { french: "la démocratie", spanish: "la dictature" },
-  // { french: "le groupe", spanish: "la foule" },
-  // { french: "le moment", spanish: "l'éternité" },
-  // { french: "la rupture", spanish: "la réunion" },
-  // { french: "l'idée", spanish: "la réalité" },
-  // { french: "le membre", spanish: "le dirigeant"
-
-  // ];
-
-
-
     shuffleArray(frenchSpanishWords);
 
     const wordContainer = document.getElementById("word-container");
@@ -310,10 +231,6 @@
           <div class="card-face front-face" style="background-color: ${getRandomColor()}">${wordData.french}</div>
           <div class="card-face back-face">
             <div>${wordData.spanish}</div>
-            <div class="options">
-              <div class="option" onclick="checkAnswer(true, ${index})">Vrai</div>
-              <div class="option" onclick="checkAnswer(false, ${index})">Faux</div>
-            </div>
           </div>
         </div>
       `;
@@ -325,53 +242,22 @@
       return colors[Math.floor(Math.random() * colors.length)];
     }
 
-    function checkAnswer(isCorrect, index) {
-  if (isCorrect) {
-    score += 10;
-    pointsCounter.textContent = "Points: " + score;
-    alert("Correct ! Score actuel : " + score);
-  } else {
-    score -= 5;
-    pointsCounter.textContent = "Points: " + score;
-    alert("Incorrect. Essayez encore !");
-  }
+    function shuffleArray(array) {
+      let currentIndex = array.length;
+      let randomIndex;
 
-  // Passer à la carte suivante
-  if (index < frenchSpanishWords.length - 1) {
-    wordContainer.children[index + 1].classList.add("hoverable");
-  }
-}
+      // While there are still elements to shuffle...
+      while (currentIndex !== 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
 
-function shuffleArray(array) {
-  let currentIndex = array.length;
-  let randomIndex;
+        // Swap it with a random element.
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      }
 
-  // While there are still elements to shuffle...
-  while (currentIndex !== 0) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // Swap it with a random element.
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-
-  // Shuffle French and Spanish words
-  for (let i = 0; i < array.length; i++) {
-    // Swap the French and Spanish words.
-    [array[i].french, array[i].spanish] = [array[i].spanish, array[i].french];
-
-    // Pick an incorrect match for the Spanish word.
-    array[i].bad = array[i].spanish;
-    while (array[i].bad === array[i].french) {
-      array[i].bad = array[i].bad.replace(array[i].french, Math.random().toString(36).substring(2, 10));
+      return array;
     }
-  }
-
-  return array;
-}
   </script>
 </body>
 </html>
- 
-
