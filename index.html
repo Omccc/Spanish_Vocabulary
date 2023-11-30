@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+  <!-- Meta tags for character set and viewport settings -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <br>
-  <title>Apprendre du vocabulaire en Espagnol</title>
+  <!-- Title of the page -->
+  <title>Learn Spanish Vocabulary</title>
+
+  <!-- CSS Styles -->
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -63,12 +67,12 @@
     }
 
     .front-face {
-      background-color: #e74c3c; /* Rouge */
+      background-color: #e74c3c; /* Red */
       color: #fff;
     }
 
     .back-face {
-      background-color: #2ecc71; /* Vert */
+      background-color: #2ecc71; /* Green */
       color: #fff;
       transform: rotateY(180deg);
       display: flex;
@@ -96,24 +100,28 @@
     }
   </style>
 </head>
-<body>
 
+<body>
+  <!-- Page header -->
   <header>
-    <h1>Apprendre du vocabulaire en Espagnol</h1>
+    <h1>Learn Spanish Vocabulary</h1>
   </header>
 
-  <!-- <div id="points-counter">Points: 0</div> -->
-
+  <!-- Word container -->
   <div id="word-container"></div>
 
+  <!-- Page footer -->
   <footer>
     <p>&copy; 2023 OC</p>
   </footer>
 
+  <!-- JavaScript code -->
   <script>
+    // Variable to keep track of the score
     // let score = 0;
 
-  
+    // Array of French and Spanish word pairs
+   
     const frenchSpanishWords = [
       { french: "le village", spanish: "el pueblo" },
       { french: "le temps", spanish: "el tiempo" },
@@ -213,16 +221,16 @@
   { french: "le bureau", spanish: "la oficina" },
   { french: "la décision", spanish: "la decisión" },
   { french: "le pouvoir", spanish: "el poder" },
-
-      // ... Ajoutez ici les autres mots ...
     ];
 
+    // Shuffle the array of words
     shuffleArray(frenchSpanishWords);
 
+    // Get DOM elements
     const wordContainer = document.getElementById("word-container");
     const pointsCounter = document.getElementById("points-counter");
 
-    // Afficher les mots dans des cartes
+    // Display words in cards
     frenchSpanishWords.forEach((wordData, index) => {
       const wordCard = document.createElement("div");
       wordCard.classList.add("word-card");
@@ -237,11 +245,13 @@
       wordContainer.appendChild(wordCard);
     });
 
+    // Function to get a random color
     function getRandomColor() {
       const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#34495e', '#16a085', '#c0392b', '#1abc9c', '#e67e22'];
       return colors[Math.floor(Math.random() * colors.length)];
     }
 
+    // Function to shuffle an array
     function shuffleArray(array) {
       let currentIndex = array.length;
       let randomIndex;
@@ -260,4 +270,8 @@
     }
   </script>
 </body>
+
 </html>
+
+
+
